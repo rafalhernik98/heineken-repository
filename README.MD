@@ -51,8 +51,13 @@ The exercise consists of reviewing the `utils.py` file and performing the follow
 
 ### Comments on utils.py
 
-_your answer here_
-
+1. In `utils.py/clean_demand_per_group` function, think about replacing iterating over each unique combination of pair (_supermarket_, _sku_) with grouping based on these two columns. Grouping works the same way and improve code readability. 
+2. Error handling (check for columns, check if file exist in reading function). Functions like read_demand, read_promotions, and parse_time should include error handling for invalid inputs (e.g., files not found, incorrect formats, etc.). 
+4. Add function _test_read_promotions_ to the `tests.py` file (the same way you did for _read_demand_).
+5. Unify the code (type annotation): some functions have a type that is passed/returned, others don't. Make it more consistent. 
+6. _marge_ function - you should validate the input DataFrames to ensure the required columns are present.
+7. Many functions lack docstrings. 
+8. `utils.py/merge`- If the promotions DataFrame contains promotions outside of the date range of the demand data, they will be introduced as NaNs in the demand column after the merge. This might be expected, but it’s worth highlighting for the user that promotions not in the demand date range will lead to missing demand values. Add a test case where the promotions DataFrame has dates that do not overlap with the demand DataFrame. And also check if the promotions are not overlaping as it could lead to additional demand data. 
 
 ## 2. Exploratory data analysis
 
