@@ -79,12 +79,15 @@ def extend_promotions_days(promotions, n_days):
     n_promotions = len(promotions)
     initial_promotions = promotions.copy()
     promotion_id = np.arange(n_promotions)
-    extended_promotions = promotions.copy().assign(promotion_id=promotion_id)
+    extended_promotions = [promotions.copy().assign(promotion_id=promotion_id)]
     for days_to_add in range(1, n_days):
         additional_promotion_days = initial_promotions.copy().assign(promotion_id=promotion_id)
         additional_promotion_days.index += pd.Timedelta(days_to_add, "d")
-        extended_promotions = extended_promotions.append(additional_promotion_days)
+        #extended_promotions = extended_promotions.append(additional_promotion_days)
+        extended_promotions.append(additional_promotion_days)
+    extended_promotions = pd.concat(extended_promotions)
     return extended_promotions
+
 
 
 def aggregate_to_weekly(df):
